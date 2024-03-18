@@ -9,6 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Discord.Net" Version="3.13.1" />
+        <PackageReference Include="Discord.Net.Rest" Version="3.13.1" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
     </ItemGroup>
 
