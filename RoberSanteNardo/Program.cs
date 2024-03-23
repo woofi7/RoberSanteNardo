@@ -1,22 +1,25 @@
 using Discord.Interactions;
 using Discord.Rest;
-using Discord.WebSocket;    
+using Discord.WebSocket;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using RoberSanteNardo;
 using RoberSanteNardo.Commands;
+using RoberSanteNardo.Models;
 
 var builder = Host.CreateApplicationBuilder(args);
 
-// builder.Services.AddOptions<DiscordBotDbContext.Options>()
-//     .BindConfiguration("Database")
-//     .ValidateDataAnnotations()
-//     .ValidateOnStart();
-//
-// builder.Services.AddDbContext<DiscordBotDbContext>((sp, dbBuilder) =>
-// {
-//     var options = sp.GetRequiredService<IOptions<DiscordBotDbContext.Options>>();
-//     dbBuilder.UseMySQL(options.Value.ConnectionString, o => o.EnableRetryOnFailure())
-//         .EnableDetailedErrors();
-// });
+builder.Services.AddOptions<DiscordBotDbContext.Options>()
+    .BindConfiguration("Database")
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
+
+builder.Services.AddDbContext<DiscordBotDbContext>((sp, dbBuilder) =>
+{
+    var options = sp.GetRequiredService<IOptions<DiscordBotDbContext.Options>>();
+    dbBuilder.UseMySQL(options.Value.ConnectionString, o => o.EnableRetryOnFailure())
+        .EnableDetailedErrors();
+});
 
 builder.Services.AddOptions<DiscordClient.Options>()
     .BindConfiguration("DiscordClient")

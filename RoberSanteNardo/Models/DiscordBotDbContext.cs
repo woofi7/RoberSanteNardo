@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RoberSanteNardo.Models;
 
-public class DiscordBotDbContext : DbContext
+public class DiscordBotDbContext(DbContextOptions options) : DbContext(options)
 {
     [Serializable]
     public class Options
