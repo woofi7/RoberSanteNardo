@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using RoberSanteNardo;
 using RoberSanteNardo.Commands;
 using RoberSanteNardo.Models;
+using RoberSanteNardo.Services;
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -33,6 +34,7 @@ builder.Services.AddSingleton<DiscordRestClient>();
 builder.Services.AddSingleton<InteractionService>(sp =>
     new InteractionService(sp.GetRequiredService<DiscordSocketClient>()));
 builder.Services.AddSingleton<CommandHandler>();
+builder.Services.AddSingleton<MusicService>();
 
 var host = builder.Build();
 host.Run();

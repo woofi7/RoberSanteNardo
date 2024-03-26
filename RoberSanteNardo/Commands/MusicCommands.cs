@@ -1,9 +1,11 @@
 ﻿using Discord.Interactions;
-using Discord.WebSocket;
+using RoberSanteNardo.Services;
 
 namespace RoberSanteNardo.Commands;
 
-public class MusicCommands : InteractionModuleBase<SocketInteractionContext>
+public class MusicCommands(
+    MusicService musicService
+) : InteractionModuleBase<SocketInteractionContext>
 {
     [SlashCommand("now-playing", "Shows information about the song that is currently playing")]
     public async Task NowPlaying()
@@ -13,18 +15,19 @@ public class MusicCommands : InteractionModuleBase<SocketInteractionContext>
     }
     
     [SlashCommand("play", "Add a song to the queue")]
-    public async Task Play()
+    public async Task Play(string link)
     {
         await Context.Interaction.RespondAsync("play");
+        await musicService.Play(Context, link);
+        
         // await Context.Interaction.DeferAsync();
-        throw new NotImplementedException();
     }
     
     [SlashCommand("play-next", "Add a song the be played next in the queue")]
-    public async Task PlayNext()
+    public async Task PlayNext(string link)
     {
         await Context.Interaction.RespondAsync("playNext");
-        throw new NotImplementedException();
+        await musicService.Play(Context, link);
     }
     
     [SlashCommand("queue", "Shows songs in the queue")]
